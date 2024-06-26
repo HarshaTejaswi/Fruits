@@ -1,0 +1,35 @@
+name: Deploy to EC2
+
+on:
+  push:
+    branches:
+      - main  # Set this to the branch you want to deploy from
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v2
+      with:
+        node-version: '14'  # Set this to your Node.js version
+
+    - name: Install dependencies
+      run: npm install
+
+    - name: Build
+      run: npm run build  # Replace this with your build command
+
+    - name: Copy files to EC2
+      uses: appleboy/scp-action@master
+      with:
+        host: ${{ secrets.EC2_HOST }}
+        username: ec2-user  # Default username for AWS EC2, change as necessary
+        key: ${{ secrets.EC2_SSH_PRIVATE_KEY }}
+        port: 22
+        source: "dist/*"  # Adjust this to the directory or files to transfer
+        target: "/var/www/html"  # Adjust the target directory as necessary
