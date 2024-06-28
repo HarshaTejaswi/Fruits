@@ -1,6 +1,7 @@
 // src/components/FruitList.js
 import React, { useEffect, useState } from 'react';
 import { getFruits, addFruits, removeFruits, updateFruitQuantity } from '../api';
+import '../App.css';  // Ensure you have this if your CSS is defined there
 
 const FruitList = () => {
   const [fruits, setFruits] = useState([]);
@@ -28,7 +29,7 @@ const FruitList = () => {
         const result = await addFruits([newFruit]);
         console.log('Fruit added:', result);
         if (result && result.ids) {
-          const newFruits = result.ids.map(id => ({ id, name: newFruit }));
+          const newFruits = result.ids.map(id => ({ id, name: newFruit, quantity: 1 })); // Ensure default quantity
           setFruits([...fruits, ...newFruits]);
           setNewFruit('');
         }
@@ -50,24 +51,25 @@ const FruitList = () => {
   };
 
   const handleUpdateQuantity = async (id, quantity) => {
-    console.log('Attempting to update quantity of fruit with ID:', id);
+    console.log('Attempting to update quantity for fruit:', id);
     try {
       const result = await updateFruitQuantity(id, quantity);
       console.log('Quantity updated:', result);
-      setFruits(fruits.map(fruit => fruit.id === id ? { ...fruit, quantity } : fruit));
+      setFruits(fruits.map(fruit => fruit.id === id ? { ...fruit, quantity: quantity } : fruit));
     } catch (error) {
       console.error('Error updating quantity:', error);
     }
   };
 
   return (
-    <div>
+    <div className="fruit-list-container">
       <ul>
         {fruits.map(fruit => (
-          <li key={fruit.id}>
-            {fruit.name} (Quantity: {fruit.quantity || 1})
-            <button onClick={() => handleRemoveFruit(fruit.id)}>Remove</button>
+          <li className="fruit-item" key={fruit.id}>
+            <span className="fruit-name">{fruit.name} (Quantity: {fruit.quantity || 1})</span>
+            <button className="button" onClick={() => handleRemoveFruit(fruit.id)}>Remove</button>
             <input
+              className="input-field"
               type="number"
               value={fruit.quantity || 1}
               onChange={(e) => handleUpdateQuantity(fruit.id, parseInt(e.target.value))}
@@ -75,14 +77,15 @@ const FruitList = () => {
           </li>
         ))}
       </ul>
-      <form onSubmit={handleAddFruit}>
+      <form onSubmit={handleAddFruit} className="add-fruit-container">
         <input
+          className="add-fruit-input"
           type="text"
           value={newFruit}
           onChange={(e) => setNewFruit(e.target.value)}
           placeholder="Add new fruit"
         />
-        <button type="submit">Add Fruit</button>
+        <button className="add-fruit-button" type="submit">Add Fruit</button>
       </form>
     </div>
   );
