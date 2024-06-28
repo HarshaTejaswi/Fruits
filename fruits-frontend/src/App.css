@@ -1,29 +1,49 @@
-/* src/App.css */
+/* Global resets and settings for body to ensure consistent styling */
 body {
+  margin: 0;
   font-family: 'Arial', sans-serif;
-}
-
-ul {
-  list-style-type: none;
-  padding: 0;
-}
-
-li {
-  margin: 10px 0;
   display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #f4f4f4;
+}
+
+/* Centering and styling for the main application container */
+.app-container {
+  width: 100%;
+  max-width: 360px;
+  padding: 20px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  background-color: #fff;
+  border-radius: 8px;
+  text-align: center;
+}
+
+/* Styles specific to the login container */
+.login-container {
+  padding: 20px;
+  margin: 20px;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
   align-items: center;
 }
 
-input[type="text"], input[type="number"] {
-  margin-left: 10px;
-  padding: 8px;
-  border: 1px solid #ccc;
+.login-container input[type="email"], .login-container input[type="password"] {
+  width: 80%;
+  padding: 10px;
+  margin: 10px 0;
+  border: 1px solid #ddd;
   border-radius: 4px;
 }
 
-button {
-  margin-left: 10px;
-  padding: 8px 16px;
+.login-container button {
+  width: 80%;
+  padding: 12px;
+  margin-top: 10px;
   background-color: #007bff;
   color: white;
   border: none;
@@ -31,6 +51,66 @@ button {
   cursor: pointer;
 }
 
-button:hover {
+.login-container button:hover {
   background-color: #0056b3;
+}
+
+/* Container for the entire fruit list */
+.fruit-list-container {
+  background-color: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  padding: 20px;
+  width: 100%;
+  max-width: 330px;
+  margin: 2px;
+  display: flex;
+  flex-direction: column;
+}
+
+.fruit-item {
+  background-color: #f0f8ff;
+  margin: 10px 0;
+  padding: 10px;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.fruit-name {
+  flex-grow: 1;
+  margin-right: 10px;
+}
+
+.button, .input-field {
+  margin-left: 10px;
+}
+
+.input-field {
+  width: 50px;
+  text-align: center;
+}
+
+.add-fruit-container {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+.add-fruit-input {
+  flex-grow: 1;
+  margin-right: 10px;
+}
+
+.add-fruit-button {
+  padding: 8px 16px;
+  background-color: #28a745;
+  color: white;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.add-fruit-button:hover {
+  background-color: #218838;
 }
